@@ -57,8 +57,8 @@ static zend_ast_list *inject_ast(zend_ast *original)
     empty_catches->children = 0;
     zend_hash_next_index_insert_ptr(ASTRACER_G(ast_to_clean), empty_catches);
 
-    finally = emalloc(sizeof(zend_ast_list) + sizeof(zend_ast*));
-    finally->kind = ZEND_AST_ARG_LIST;
+    finally = emalloc(sizeof(zend_ast_list));
+    finally->kind = ZEND_AST_STMT_LIST;
     finally->lineno = 0;
     finally->children = 1;
     finally->child[0] = create_ast_call("astracer_end");
@@ -223,7 +223,18 @@ PHP_MINFO_FUNCTION(astracer)
     php_info_print_table_end();
 }
 
+PHP_FUNCTION(astracer_begin)
+{
+    php_printf("begin tracing\n");
+}
+PHP_FUNCTION(astracer_end)
+{
+    php_printf("end tracing\n");
+}
+
 zend_function_entry php_astracer_functions[] = {
+    PHP_FE(astracer_begin, NULL)
+    PHP_FE(astracer_end, NULL)
     PHP_FE_END
 };
 

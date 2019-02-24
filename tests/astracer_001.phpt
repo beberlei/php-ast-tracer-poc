@@ -10,6 +10,8 @@ class Targets {
         return $a + $b;
     }
 }
+
+echo (new Targets())->foo(2, 3);
 --EXPECTF--
 namespace Testing;
 class Targets {
@@ -21,4 +23,11 @@ class Targets {
             astracer_end();
         }
     }
+
 }
+
+echo new Targets()->foo(2, 3);
+
+begin tracing
+end tracing
+5
